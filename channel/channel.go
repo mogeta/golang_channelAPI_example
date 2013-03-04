@@ -3,6 +3,7 @@ package tictactoe
 import (
 	"html/template"
 	"net/http"
+	"time"
 
 	"appengine"
 	"appengine/channel"
@@ -40,5 +41,5 @@ func main(w http.ResponseWriter, r *http.Request) {
 func receive(w http.ResponseWriter, r *http.Request) {
 	c := appengine.NewContext(r)
 	key := r.FormValue("g")
-	channel.Send(c, key, "go側のreceive!")
+	channel.Send(c, key, "go receive!"+time.Now().String())
 }
