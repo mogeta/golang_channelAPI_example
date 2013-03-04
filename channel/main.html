@@ -1,0 +1,37 @@
+<html>
+<body>
+
+	<form action="#">
+	<input type="button" value="OK" onclick="return exe()">
+	</form>
+	<div id="area"></div>
+
+	<script type="text/javascript" src="/_ah/channel/jsapi"></script>
+ 	<script>
+
+	var channel = new goog.appengine.Channel( {{.token}} );
+	var socket = channel.open({
+	onopen : function(){
+		document.getElementById("area").innerHTML+="{{.token}} ::: onopen<br />";　
+	}
+	,	onmessage : function(message) {
+		document.getElementById("area").innerHTML+="onmessage::"+message.data+"<br />";　
+	}
+	,	onerror : function(error) {
+		document.getElementById("area").innerHTML+="onerror<br />";　
+	}
+	,	onclose : function(){
+	　  	document.getElementById("area").innerHTML+="onclose<br />";　
+	}
+	});
+  </script>
+  <script>
+	function exe() {
+		var path = '/receive?g=' +  {{.me}} + {{.game_key}} ;
+		var xhr = new XMLHttpRequest();
+  		xhr.open('POST', path, true);
+  		xhr.send();
+	}
+  </script>
+</body>
+</html>
