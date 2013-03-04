@@ -1,4 +1,4 @@
-package tictactoe
+package channelExample
 
 import (
 	"html/template"
